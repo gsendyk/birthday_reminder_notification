@@ -2,14 +2,18 @@ import csv
 import logging
 import os.path
 from collections import defaultdict
+from pathlib import Path
 
+import yaml
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-ME = "Replace Me as in full name matching your google account (e.g. John Doe)"
+FILE_YAML = Path(__file__).parent / "config.yaml"
+YAML_RULES = yaml.load(open(FILE_YAML, "r"), Loader=yaml.FullLoader)
+
 SCOPES = ["https://www.googleapis.com/auth/contacts.readonly"]
 
 
@@ -65,7 +69,7 @@ def prep_dict(contacts_list):
         for person in contacts_list:
             birthday = person.get("birthdays", [])
             if birthday:
-                if person["names"][0]["displayName"].title() != ME:
+                if person["names"][0]["displayName"].title() != YAML_RULES["google"]["your_name"]:
                     date = person["birthdays"][0]["date"]
                     month = f"{date['month']:02}"
                     day = f"{date['day']:02}"
@@ -88,6 +92,10 @@ def prep_dict(contacts_list):
 
 
 def main():
+    """
+    This runs the main program that pulls your contact
+     list with birthdays and saves it on a csv file.
+    """
 
     logging.basicConfig(
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",

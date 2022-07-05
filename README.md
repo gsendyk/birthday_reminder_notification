@@ -13,6 +13,8 @@ Reminds you of upcoming birthdays based on your Google Contacts list. It sends a
 
 1. Install the required libraries on a virtual enviroment (e.g. python3.7 -m pip install -r requirements.txt)
 
-2. Run `grab_contacts.py` (e.g. python3.7 grab_contacts.py). This will save your google contacts to a csv file (bday_detials.csv)
+2. Edit `config.yaml` file with your Telegram Bot API key, your Name (so your contact can be ignored), and the `msg_settings` field with its related information - please remember to add the `{name}` variable into the message so it can be properly filled by the script.
 
-3. Set up a cron job to run `message.py` once a day. This file will check for existing birthdays on the day of, and if it detects any, will send you a message over Telegram. 
+3. Run `grab_contacts.py` (e.g. python3.7 grab_contacts.py). This will save your google contacts to a csv file (bday_detials.csv)
+
+4. Set up a cron job to run `message.py` once a day. This file will check for existing birthdays on the day of, and if it detects any, will send you a message over Telegram. 

@@ -1,3 +1,10 @@
+# This section is for Google's grab_contacts.py:
+
+google:
+  your_name: <Replace Me as in full name matching your google account (e.g. John Doe)>
+
+# ---------------------------------------------------------- #
+
 # This section is for the Telegram Configuration: 
 # from Telegram: https://core.telegram.org/bots#6-botfather
 
