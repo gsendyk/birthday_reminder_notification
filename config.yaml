@@ -1,0 +1,28 @@
+# This section is for the Telegram Configuration: 
+# from Telegram: https://core.telegram.org/bots#6-botfather
+
+config:
+  - provider: Telegram
+    bot_token: <get the token from https://t.me/botfather (e.g. 110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw)>
+    chat_id: <get the id from https://t.me/@myidbot (e.g. 123456789)>
+
+# ---------------------------------------------------------- #
+
+# If you want to add more languages/msgs please add the template below after `msg_settings`:
+# - language: <Language> This is just for the logs.
+#   country: # this is a list based on the country codes digits of your contacts (e.g. +1 = US, +55 = Brazil, etc)
+#     - <country_code> This needs to match https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements
+#     - <country_code2> # Optional but it needs to be in a list format
+#   msg: <your custom message> !! Please include the tag {name}, otherwise it will give an error !!
+
+msg_settings:
+  - language: English
+    country: 
+      - US
+      - GB
+    msg: Hi {name}! Happy birthday!!
+
+  - language: Portuguese
+    country: 
+      - BR
+    msg: Olá {name}! Parabéns e só alegrias!
