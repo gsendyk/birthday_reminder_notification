@@ -30,10 +30,36 @@ def check_birthday(today):
     return birthdays
 
 
-def send_message(birthday_list):
+def send_message(final_msg, display_name):
+    """
+    This function will try to send the message.
+    If there is a network error it will retry 5 times with 2 a min interval
+    timeout = 10 min
+    """
+
+    for _ in range(5):
+        try:
+            TELEGRAM.send_message(
+                TELEGRAM_CHAT_ID,
+                final_msg,
+                parse_mode=ParseMode.HTML,
+                disable_web_page_preview=True,
+            )
+        except NetworkError as e:
+            logging.error(
+                f"Unable to send msg to {display_name}, retrying for up to 10 minutes... {e}"
+            )
+            time.sleep(120)
+            continue
+        break
+    return
+
+
+def build_message(birthday_list):
     """
     This function will build the message and send it to Telegram
     """
+
     msg_settings = YAML_RULES["msg_settings"]
     for item in birthday_list:
         phone_number = item["phoneNumber"][2:-2]
@@ -51,12 +77,7 @@ def send_message(birthday_list):
                 logging.info(
                     f"Sending Bday MSG to: {item['displayName']} in {msg_settings[i]['language']}"
                 )
-                TELEGRAM.send_message(
-                    TELEGRAM_CHAT_ID,
-                    final_msg,
-                    parse_mode=ParseMode.HTML,
-                    disable_web_page_preview=True,
-                )
+                send_message(final_msg, item["displayName"])
 
 
 def main():
@@ -81,7 +102,7 @@ def main():
 
     # if there are birthdays today, continue
     if birthday_list:
-        send_message(birthday_list)
+        build_message(birthday_list)
     logging.info(f"Exiting...")
     return
 
