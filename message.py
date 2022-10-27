@@ -30,7 +30,7 @@ def check_birthday(today):
     return birthdays
 
 
-def send_message(final_msg):
+def send_message(final_msg, display_name):
     """
     This function will try to send the message.
     If there is a network error it will retry 5 times with 2 a min interval
@@ -47,7 +47,7 @@ def send_message(final_msg):
             )
         except NetworkError as e:
             logging.error(
-                f"Unable to send msg to {item['displayName']}, retrying for up to 10 minutes... {e}"
+                f"Unable to send msg to {display_name}, retrying for up to 10 minutes... {e}"
             )
             time.sleep(120)
             continue
